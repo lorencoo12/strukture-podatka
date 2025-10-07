@@ -1,0 +1,2 @@
+# strukture-podatka
+# strukture-podatka
