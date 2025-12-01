@@ -60,11 +60,11 @@ Poly* createNode(int coef, int exp) {
 void insertSorted(Poly* head, int coef, int exp) {
     Poly* temp = head;
 
-    // Pronadi mjesto gdje eksponent sljedeceg ?lana >= novog eksponenta
+    // Pronadi mjesto gdje eksponent sljedeceg clana >= novog eksponenta
     while (temp->next != NULL && temp->next->exp < exp)
         temp = temp->next;
 
-    // Ako postoji clan sa istim eksponentom ? zbroji koeficijente
+    // Ako postoji clan sa istim eksponentom  zbroji koeficijente
     if (temp->next != NULL && temp->next->exp == exp) {
         temp->next->coef += coef;
 
@@ -148,5 +148,6 @@ void multiplyPoly(Poly* head, Poly* p1, Poly* p2) {
         t1 = t1->next;
     }
 }
+
 
 
