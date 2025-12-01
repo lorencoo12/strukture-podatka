@@ -76,7 +76,7 @@ void insertSorted(Poly* head, int coef, int exp) {
         }
     }
     else {
-        // Ina?e umetni novi ?lan
+        // Inace umetni novi clan
         Poly* node = createNode(coef, exp);
         node->next = temp->next;
         temp->next = node;
@@ -148,6 +148,7 @@ void multiplyPoly(Poly* head, Poly* p1, Poly* p2) {
         t1 = t1->next;
     }
 }
+
 
 
 
