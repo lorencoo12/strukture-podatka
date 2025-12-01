@@ -110,7 +110,7 @@ void printPoly(Poly* head) {
     }
 
     while (temp) {
-        printf("%d^%d", temp->coef, temp->exp); // ispiši clan
+        printf("%d*%d", temp->coef, temp->exp); // ispiši clan
         if (temp->next) printf(" + ");          // dodaj + ako ima sljedeci
         temp = temp->next;
     }
@@ -148,6 +148,7 @@ void multiplyPoly(Poly* head, Poly* p1, Poly* p2) {
         t1 = t1->next;
     }
 }
+
 
 
 
