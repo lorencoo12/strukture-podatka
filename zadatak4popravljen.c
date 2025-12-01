@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Struktura jednog ?lana polinoma
+// Struktura jednog clana polinoma
 typedef struct Poly {
     int coef;            // koeficijent ?lana
     int exp;             // eksponent ?lana
@@ -18,13 +18,13 @@ void sumPoly(Poly* head, Poly* p1, Poly* p2);
 void multiplyPoly(Poly* head, Poly* p1, Poly* p2);
 
 int main() {
-    // Kreiramo "glave" polinoma (dummy head) da lakše radimo s listom
+    // Kreiranje glave polinoma da lakÅ¡e radimo s listom
     Poly head1 = { 0, 0, NULL };       // polinom 1
     Poly head2 = { 0, 0, NULL };       // polinom 2
     Poly sumHead = { 0, 0, NULL };     // polinom suma
     Poly productHead = { 0, 0, NULL }; // polinom produkt
 
-    // ?itanje polinoma iz datoteka
+    // citanje polinoma iz datoteka
     readFromFile(&head1, "pol1.txt");
     readFromFile(&head2, "pol2.txt");
 
@@ -39,7 +39,7 @@ int main() {
     printf("Sum: ");
     printPoly(&sumHead);
 
-    // Množenje polinoma
+    // MnoÅ¾enje polinoma
     multiplyPoly(&productHead, &head1, &head2);
     printf("Product: ");
     printPoly(&productHead);
@@ -47,7 +47,7 @@ int main() {
     return 0;
 }
 
-// Funkcija koja stvara novi ?vor polinoma
+// Funkcija koja stvara novi cvor polinoma
 Poly* createNode(int coef, int exp) {
     Poly* node = (Poly*)malloc(sizeof(Poly)); // alociramo memoriju
     node->coef = coef;    // postavljamo koeficijent
@@ -56,19 +56,19 @@ Poly* createNode(int coef, int exp) {
     return node;
 }
 
-// Funkcija za umetanje ?lana u listu sortiran po eksponentu (rastuci)
+// Funkcija za umetanje clana u listu sortiran po eksponentu (rastuci)
 void insertSorted(Poly* head, int coef, int exp) {
     Poly* temp = head;
 
-    // Prona?i mjesto gdje eksponent sljede?eg ?lana >= novog eksponenta
+    // Pronadi mjesto gdje eksponent sljedeceg ?lana >= novog eksponenta
     while (temp->next != NULL && temp->next->exp < exp)
         temp = temp->next;
 
-    // Ako postoji ?lan sa istim eksponentom ? saberi koeficijente
+    // Ako postoji clan sa istim eksponentom ? zbroji koeficijente
     if (temp->next != NULL && temp->next->exp == exp) {
         temp->next->coef += coef;
 
-        // Ako koeficijent postane 0 ? briši ?lan
+        // Ako koeficijent postane 0  briÅ¡i clan
         if (temp->next->coef == 0) {
             Poly* toDelete = temp->next;
             temp->next = temp->next->next;
@@ -83,7 +83,7 @@ void insertSorted(Poly* head, int coef, int exp) {
     }
 }
 
-// Funkcija za ?itanje polinoma iz datoteke
+// Funkcija za citanje polinoma iz datoteke
 // Datoteka format: koef eks koef eks ...
 void readFromFile(Poly* head, const char* filename) {
     FILE* fp = fopen(filename, "r");   // otvaramo datoteku
@@ -93,7 +93,7 @@ void readFromFile(Poly* head, const char* filename) {
     }
 
     int coef, exp;
-    // ?itamo parove (koeficijent i eksponent) dok ih ima
+    // citanje parove (koeficijent i eksponent) dok ih ima
     while (fscanf(fp, "%d %d", &coef, &exp) == 2) {
         insertSorted(head, coef, exp); // umetni svaki ?lan u listu
     }
@@ -110,7 +110,7 @@ void printPoly(Poly* head) {
     }
 
     while (temp) {
-        printf("%d^%d", temp->coef, temp->exp); // ispiši ?lan
+        printf("%d^%d", temp->coef, temp->exp); // ispiÅ¡i ?lan
         if (temp->next) printf(" + ");          // dodaj + ako ima sljede?i
         temp = temp->next;
     }
@@ -122,30 +122,31 @@ void sumPoly(Poly* head, Poly* p1, Poly* p2) {
     Poly* t1 = p1->next;
     Poly* t2 = p2->next;
 
-    // Dodaj sve ?lanove prvog polinoma
+    // Dodaj sve clanove prvog polinoma
     while (t1) {
         insertSorted(head, t1->coef, t1->exp);
         t1 = t1->next;
     }
 
-    // Dodaj sve ?lanove drugog polinoma
+    // Dodaj sve clanove drugog polinoma
     while (t2) {
         insertSorted(head, t2->coef, t2->exp);
         t2 = t2->next;
     }
 }
 
-// Funkcija za množenje dvaju polinoma
+// Funkcija za mnoÅ¾enje dvaju polinoma
 void multiplyPoly(Poly* head, Poly* p1, Poly* p2) {
     Poly* t1 = p1->next;
 
     while (t1) {            // za svaki ?lan prvog polinoma
         Poly* t2 = p2->next;
-        while (t2) {        // množi ga sa svim ?lanovima drugog
+        while (t2) {        // mnoÅ¾i ga sa svim ?lanovima drugog
             insertSorted(head, t1->coef * t2->coef, t1->exp + t2->exp);
             t2 = t2->next;
         }
         t1 = t1->next;
     }
 }
+
 
