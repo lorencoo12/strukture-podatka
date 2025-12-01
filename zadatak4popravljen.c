@@ -4,8 +4,8 @@
 
 // Struktura jednog clana polinoma
 typedef struct Poly {
-    int coef;            // koeficijent ?lana
-    int exp;             // eksponent ?lana
+    int coef;            // koeficijent clana
+    int exp;             // eksponent clana
     struct Poly* next;   // pokaziva? na sljede?i ?lan
 } Poly;
 
@@ -52,7 +52,7 @@ Poly* createNode(int coef, int exp) {
     Poly* node = (Poly*)malloc(sizeof(Poly)); // alociramo memoriju
     node->coef = coef;    // postavljamo koeficijent
     node->exp = exp;      // postavljamo eksponent
-    node->next = NULL;    // next pokaziva? je NULL
+    node->next = NULL;    // next pokazivac je NULL
     return node;
 }
 
@@ -103,15 +103,15 @@ void readFromFile(Poly* head, const char* filename) {
 
 // Funkcija za ispis polinoma
 void printPoly(Poly* head) {
-    Poly* temp = head->next;  // preska?emo dummy head
+    Poly* temp = head->next;  // preskacemo head
     if (!temp) {               // ako je polinom prazan
         printf("0\n");
         return;
     }
 
     while (temp) {
-        printf("%d^%d", temp->coef, temp->exp); // ispiši ?lan
-        if (temp->next) printf(" + ");          // dodaj + ako ima sljede?i
+        printf("%d^%d", temp->coef, temp->exp); // ispiši clan
+        if (temp->next) printf(" + ");          // dodaj + ako ima sljedeci
         temp = temp->next;
     }
     printf("\n"); // novi red nakon ispisa
@@ -139,15 +139,16 @@ void sumPoly(Poly* head, Poly* p1, Poly* p2) {
 void multiplyPoly(Poly* head, Poly* p1, Poly* p2) {
     Poly* t1 = p1->next;
 
-    while (t1) {            // za svaki ?lan prvog polinoma
+    while (t1) {            // za svaki clan prvog polinoma
         Poly* t2 = p2->next;
-        while (t2) {        // množi ga sa svim ?lanovima drugog
+        while (t2) {        // množi ga sa svim clanovima drugog
             insertSorted(head, t1->coef * t2->coef, t1->exp + t2->exp);
             t2 = t2->next;
         }
         t1 = t1->next;
     }
 }
+
 
 
 
